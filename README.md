@@ -14,7 +14,7 @@ Step 1: Plotly
 -Use otu_labels as the hovertext for the chart.
 
 
-3.Create a bubble chart that displays each sample.
+3. Create a bubble chart that displays each sample.
 
 -Use otu_ids for the x values.
 -Use sample_values for the y values.
