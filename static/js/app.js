@@ -56,39 +56,54 @@ function DrawBubblechart(sampleId) {
     d3.json("samples.json").then(data => {
         console.log(data);
 
+        // Now is time to get value out of your data
+        // We are ask to graph the 'samples' portion of the data(info)
+        var samples = data.samples;
+        var resultArray = samples.filter(s => s.id == sampleId);
+        // console.log(resultArray);
+        var result = resultArray[0];
+        // console.log(result);
+
+        var otu_ids = result.otu_ids;
+        // console.log(otu_ids);
+        var otu_labels = result.otu_labels;
+        // console.log(otu_labels);
+        var sample_values = result.sample_values;
+        // console.log(sample_values);
+
         var trace1 = {
-            x: ['otu_ids'],
-            y: ['samples'],
-            text: ['otu_labels'],
+            x: otu_ids,
+            y: sample_values,
             mode: 'markers',
             marker: {
-                size: ['samples'],
-                color: ['otu_ids']
+                size: sample_values,
+                color: otu_ids,
+                colorscale: 'Earth'
             }
         }
 
         var chartArray = [trace1];
 
         var chartLayout = {
-            title: "Top 10 Bacteria Cultures Found",
+            title: "Bacteria Cultures",
+            xaxis: {title: "OTU_ID"},
+            yaxis: {title: "Values"},
             showlegend: false,
-            heighht: 600,
-            width: 600
-        };
+            height: 600,
+            width: 1200
+        }
 
         Plotly.newPlot("bubble", chartArray, chartLayout);
 
     })
-};
-
-    
-    
-
+}
 
 function ShowMetadata(sampleId) {
     console.log(`ShowMetadata(${sampleId})`);
 }
 
+
+    
 // When choosing a diff subject on drop-down, it doesnt work as we need 
 // an event handler.
 // Per index.html: onchange="optionChanged(this.value)" this is the event handler
