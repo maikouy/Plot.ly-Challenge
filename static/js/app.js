@@ -1,18 +1,13 @@
-console.log("apps.js loaded!");
 
-// This is call a function stub --> Placeholder for the real 'Function'
+// ****Codes below are Instructor Dom's starter code shown in office hour****
 function DrawBargraph(sampleId) {
     console.log(`DrawBargraph(${sampleId})`);
 
     // Build bargraph
     d3.json("samples.json").then(data => {
-        console.log(data);
-        // You can omit the console.log line up there bc thats just to check 
-        // your work
+        // console.log(data);
 
-
-        // Now is time to get value out of your data
-        // We are ask to graph the 'samples' portion of the data(info)
+        // Pull values from dataset
         var samples = data.samples;
         var resultArray = samples.filter(s => s.id == sampleId);
         // console.log(resultArray);
@@ -45,18 +40,18 @@ function DrawBargraph(sampleId) {
         }
 
         Plotly.newPlot("bar", barArray, barLayout);
-
     })
 }
 
+// ****Codes I process******
+// Build Bubble Chart
 function DrawBubblechart(sampleId) {
     console.log(`DrawBubblechart(${sampleId})`);
 
     d3.json("samples.json").then(data => {
         console.log(data);
 
-        // Now is time to get value out of your data
-        // We are ask to graph the 'samples' portion of the data(info)
+         // Pull values from dataset
         var samples = data.samples;
         var resultArray = samples.filter(s => s.id == sampleId);
         console.log(resultArray);
@@ -93,57 +88,54 @@ function DrawBubblechart(sampleId) {
         }
 
         Plotly.newPlot("bubble", chartArray, chartLayout);
-
     })
 }
 
-// *****COMPLETE THE MEDTADATA PART!!!!!!!!!!!!!!!!!!!!!!!!!!
+// ****Codes I process******
 function ShowMetadata(metadataId) {
     console.log(`ShowMetadata(${metadataId})`);
 
     d3.json("samples.json").then(data => {
         console.log(data);
 
+        // Pull values from dataset
         var metadata = data.metadata;
         console.log(metadata)
 
-        // var resultArray = metadata.filter(meta => meta.id == metadata.id);
         var resultArr = metadata.filter(m => m.id.toString() === metadataId);
         console.log(resultArr);
         var result = resultArr[0];
         console.log(result);
 
-
-        // process the location of the metadata into the 'Demo Info' section:
+        // Process the location of the metadata into the 'Demo Info' section:
         var demoInfo = d3.select("#sample-metadata");
         console.log(demoInfo)
 
+        // Clear the existing output
         demoInfo.html("");
 
-        Object.entries(result).forEach(function([key, value]) {
+        // Process the loop to showcase key/value 
+        Object.entries(result).forEach(([key, value]) => {
             // console.log(`Key: ${key} and Value: ${value}`);
-            var row = demoInfo.append("p");
-            row.text(`${key}:${value}`)
+            var row = demoInfo.append("p").text(`${key}:${value}`)
         });
-    });
+    })
 }
 
 
     
-// When choosing a diff subject on drop-down, it doesnt work as we need 
-// an event handler.
+// When choosing a diff subject on drop-down, it doesnt work as we need an event handler.
 // Per index.html: onchange="optionChanged(this.value)" this is the event handler
-
+// ****Codes below are Instructor Dom's starter code shown in office hour****
 function optionChanged(newSampleId) {
     console.log(`User selected ${newSampleId}`);
 
     DrawBargraph(newSampleId);
     DrawBubblechart(newSampleId);
     ShowMetadata(newSampleId);
-    
 }
 
-// Codes below are Dom's starter code shown in office hour:
+// ****Codes below are Instructor Dom's starter code shown in office hour****
 function InitDashboard() {
     console.log("InitDashboard()");
 
@@ -167,9 +159,7 @@ function InitDashboard() {
         DrawBargraph(id);
         DrawBubblechart(id);
         ShowMetadata(id);
-
     });
-
 }
 
 InitDashboard();
