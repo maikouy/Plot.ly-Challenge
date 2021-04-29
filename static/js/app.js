@@ -49,7 +49,6 @@ function DrawBargraph(sampleId) {
     })
 }
 
-// *****WORK ON THIS PART NOW******
 function DrawBubblechart(sampleId) {
     console.log(`DrawBubblechart(${sampleId})`);
 
@@ -60,7 +59,7 @@ function DrawBubblechart(sampleId) {
         // We are ask to graph the 'samples' portion of the data(info)
         var samples = data.samples;
         var resultArray = samples.filter(s => s.id == sampleId);
-        // console.log(resultArray);
+        console.log(resultArray);
         var result = resultArray[0];
         // console.log(result);
 
@@ -69,7 +68,7 @@ function DrawBubblechart(sampleId) {
         var otu_labels = result.otu_labels;
         // console.log(otu_labels);
         var sample_values = result.sample_values;
-        // console.log(sample_values);
+        console.log(sample_values);
 
         var trace1 = {
             x: otu_ids,
@@ -98,8 +97,35 @@ function DrawBubblechart(sampleId) {
     })
 }
 
-function ShowMetadata(sampleId) {
-    console.log(`ShowMetadata(${sampleId})`);
+// *****COMPLETE THE MEDTADATA PART!!!!!!!!!!!!!!!!!!!!!!!!!!
+function ShowMetadata(metadataId) {
+    console.log(`ShowMetadata(${metadataId})`);
+
+    d3.json("samples.json").then(data => {
+        console.log(data);
+
+        var metadata = data.metadata;
+        console.log(metadata)
+
+        // var resultArray = metadata.filter(meta => meta.id == metadata.id);
+        var resultArr = metadata.filter(m => m.id.toString() === metadataId);
+        console.log(resultArr);
+        var result = resultArr[0];
+        console.log(result);
+
+
+        // process the location of the metadata into the 'Demo Info' section:
+        var demoInfo = d3.select("#sample-metadata");
+        console.log(demoInfo)
+
+        demoInfo.html("");
+
+        Object.entries(result).forEach(function([key, value]) {
+            // console.log(`Key: ${key} and Value: ${value}`);
+            var row = demoInfo.append("p");
+            row.text(`${key}:${value}`)
+        });
+    });
 }
 
 
